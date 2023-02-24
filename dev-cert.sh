@@ -24,5 +24,11 @@ END
 
 openssl pkcs12 -export -out "$path/$domain".pfx -inkey "$path/$domain".key -in "$path/$domain".crt
 
+# https://wiki.archlinux.org/title/User:Grawity/Adding_a_trusted_CA_certificate
+# "personal" trust
+certutil -d "sql:$HOME/.pki/nssdb" -A -i "$HOME/.aspnet/https/localhost.crt" -n "localhost-ca" -t C,,
+
 #Arch Linux trust certificate system wide
-#sudo trust anchor $HOME/.aspnet/https/ca.crt
+sudo trust anchor $HOME/.aspnet/https/ca.crt
+
+sudo update-ca-trust
