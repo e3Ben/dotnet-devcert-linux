@@ -29,8 +29,6 @@ END
 
 openssl pkcs12 -export -out "$path/$domain".pfx -inkey "$path/$domain".key -in "$path/$domain".crt
 
-
-
 certutil -d "sql:$HOME/.pki/nssdb" -A -i $path/ca.crt -n 'Localhost CA' -t C,,
 sudo trust anchor $HOME/.aspnet/https/ca.crt
 sudo update-ca-trust
